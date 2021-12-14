@@ -19,6 +19,11 @@ int main()
     while(t<4)
     {
         system("cls");
+        if(front>rear)
+        {
+            front=-1;
+            rear=-1;
+        }
         printf("\n--QUEUE IMPLEMENTATION USING ARRAYS--");
         printf("\n1-> ENQUEUE");
         printf("\n2-> DEQUEUE");

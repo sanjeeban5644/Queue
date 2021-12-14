@@ -1,9 +1,10 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-void enqueue();
-void dequeue();
-void display();
+int enqueue(int [],int);
+int dequeue(int []);
+int display(int []);
+int displayf(int []);
 
 int front=-1,rear=-1;
 char ch;
@@ -30,16 +31,16 @@ int main()
             case 1 : enqueue(queue,n); break;
             case 2 : dequeue(queue); break;
             case 3 : display(queue); break;
-            default : printf("\nProgram Ended\n\nThankyou!!"); break;
+            default : printf("\nProgram Ended\n\nThankyou!!"); exit(2);
         }
     }
     return 0;
 }
 
-void enqueue(int queue[],int size)
+int enqueue(int queue[],int size)
 {
     int value;
-    if(rear=size-1)
+    if(rear==size-1)
     {
         printf("\n--OVERFLOW--\n");
     }
@@ -55,16 +56,16 @@ void enqueue(int queue[],int size)
         queue[rear]=value;
     }
     printf("\nContinue? y/n : ");
-    scanf("%c",&ch);
+    scanf(" %c",&ch);
     if(ch=='n')
     {
         printf("\nThe final queue is : ");
-        display(queue);
+        displayf(queue);
         return 0;
     }
 }
 
-void dequeue(int queue[])
+int dequeue(int queue[])
 {
     if(rear==-1)
     {
@@ -76,16 +77,16 @@ void dequeue(int queue[])
         front++;
     }
     printf("\nContinue? y/n : ");
-    scanf("%c",&ch);
+    scanf(" %c",&ch);
     if(ch=='n')
     {
         printf("\nThe final queue is : ");
-        display(queue);
+        displayf(queue);
         return 0;
     }
 }
 
-void display(int queue[])
+int display(int queue[])
 {
     int i;
     if(rear==-1)
@@ -100,7 +101,41 @@ void display(int queue[])
             {
                 printf(" %d.",queue[i]);
             }
-            printf(" %d,",queue[i]);
+            else
+            {
+                printf(" %d,",queue[i]);
+            }
         }
     }
+    printf("\nContinue? y/n : ");
+    scanf(" %c",&ch);
+    if(ch=='n')
+    {
+        printf("\nThe final queue is : ");
+        displayf(queue);
+    }
+}
+
+int displayf(int queue[])
+{
+    int i;
+    if(rear==-1)
+    {
+        printf("\nQueue is empty");
+    }
+    else
+    {
+        for(i=front;i<=rear;i++)
+        {
+            if(i==rear)
+            {
+                printf(" %d.",queue[i]);
+            }
+            else
+            {
+                printf(" %d,",queue[i]);
+            }
+        }
+    }
+   exit(1);
 }

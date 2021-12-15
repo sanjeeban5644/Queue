@@ -6,12 +6,8 @@ struct node
     /* data */
     int data;
     struct node *next;
-}*new,*front,*rear,*temp;
+}*new_node,*front,*rear,*temp;
 
-front=NULL;
-rear=NULL;
-
-int rear_arr=-1,front_arr=-1;
 
 void usingarrays();
 void enqueue_arr(int [],int);
@@ -28,7 +24,7 @@ int final=0;
 int main()
 {
     int t=0,choice;
-    while(t<3)
+    while(choice<3)
     {
         system("cls");
         printf("\n--ENTER YOUR CHOICE--");
@@ -49,8 +45,9 @@ int main()
 
 void usingll()
 {
-    int t=0,choice;
-    while(t<4)
+    int t=0,choice=0;
+    final=0;
+    while(choice<4)
     {
         system("cls");
         printf("\n--QUEUE USING LINKED LIST--\n");
@@ -72,18 +69,19 @@ void usingll()
 
 void enqueuell()
 {
-    new=(struct node*)malloc(sizeof(struct node));
+    new_node=(struct node*)malloc(sizeof(struct node));
     printf("\nEnter the value : ");
-    scanf("%d",&new->data);
+    scanf("%d",&new_node->data);
+    new_node->next=NULL;
     if(rear==NULL)
     {
-        front=new;
-        rear=new;
+        front=new_node;
+        rear=new_node;
     }
     else
     {
-        rear->next=new;
-        rear=new;
+        rear->next=new_node;
+        rear=new_node;
     }
     printf("\nElement inserted successfully!");
     printf("\nPress 'y' to continue : ");
@@ -115,23 +113,24 @@ void displayll()
     if(final==1)
     {
         printf("\nThe Final Queue is : ");
-        while(temp!=NULL)
+        if(front==NULL)
         {
-            if(temp==rear)
-            {
-                printf(" %d.",temp->data);
-            }
-            else
-            {
-                printf(" %d,",temp->data);
-            }
-            temp=temp->next;
+            printf("--empty--");
+            printf("\nPress 'y' to continue : ");
+        scanf(" %c",&ch);
+            return ;
         }
-        return ;
     }
     else
     {
         printf("\nThe Queue is : ");
+    }
+    if(front==NULL)
+    {
+        printf("--Empty Queue--");
+    }
+    else
+    {
         while(temp!=NULL)
         {
             if(temp==rear)
@@ -155,7 +154,8 @@ void usingarrays()
     printf("\nEnter the size of the array : ");
     scanf("%d",&size);
     int queue[size];
-    while(t<4)
+    final=0;
+    while(choice<4)
     {
         system("cls");
         printf("\n--QUEUE USING ARRAYS--\n");
@@ -163,6 +163,7 @@ void usingarrays()
         printf("\n2->DEQUEUE");
         printf("\n3->DISPLAY");
         printf("\n4->EXIT");
+        printf("\n(array size = %d)",size);
         printf("\nEnter your choice : ");
         scanf("%d",&choice);
         switch(choice)
@@ -174,33 +175,39 @@ void usingarrays()
         }
     }
 }
+int rear_arr=-1,front_arr=-1;
 
 void enqueue_arr(int queue[],int size)
 {
-    
+    int value;
     if(rear_arr==size-1)
     {
-        printf("\n--QUEUE OVERFLOW--");
-        printf("\nPress 'y' to continue : ");
-        scanf(" %c",&ch);
-        return ;
+        printf("\n--OVERFLOW--");
     }
-    printf("\nEnter the value : ");
-    rear++;
-    scanf("%d",&queue[rear_arr]);
+    else
+    {
+        printf("\nEnter the value : ");
+        scanf("%d",&value);
+        if(front_arr==-1)
+        {
+            front_arr=0;
+        }
+        rear_arr++;
+        queue[rear_arr]=value;
+    }
     printf("\nElement inserted successfully!");
     printf("\nPress 'y' to continue : ");
     scanf(" %c",&ch);
 }
 
+
+
+
 void dequeue_arr(int queue[],int size)
 {
-    if(front_arr==-1)
+    if(rear_arr==-1)
     {
-        printf("\n--QUEUE UNDERFLOW--");
-        printf("\nPress 'y' to continue : ");
-        scanf(" %c",&ch);
-        return ;
+        printf("--UNDERFLOW--");
     }
     else if(front_arr==rear_arr)
     {
@@ -213,26 +220,49 @@ void dequeue_arr(int queue[],int size)
         printf("\nThe element deleted is : %d",queue[front_arr]);
         front_arr++;
     }
+    printf("\nElement deleted successfully!\n");
     printf("\nPress 'y' to continue : ");
     scanf(" %c",&ch);
-}
 
+}
 void display_arr(int queue[],int size)
 {
     int i;
-    if(final==1)
+    if(final==1 && rear_arr==-1)
     {
         printf("\nThe Final Queue is : ");
-
+        printf("--empty--");
+        printf("\nPress 'y' to continue : ");
+        scanf(" %c",&ch);
+        return ;
+    
+    }
+    if(rear_arr==-1)
+    {
+        printf("\n--EMPTY QUEUE--");
     }
     else
     {
-        printf("\nThe Queue is : ");
+        if(final==1)
+        {
+            printf("\nThe Final Queue is : ");
+        }
+        else
+        {
+            printf("\nThe Queue is : ");
+        }
+        for(i=front_arr;i<=rear_arr;i++)
+        {
+            if(i==rear_arr)
+            {
+                printf(" %d.",queue[i]);
+            }
+            else
+            {
+                printf(" %d,",queue[i]);
+            }
+        }
     }
-    i=front_arr;
-    while(i!=rear_arr)
-    {
-        printf(" %d,",queue[i]);
-    }
-    printf(" %d.",queue[i]);
+    printf("\nPress 'y' to continue : ");
+    scanf(" %c",&ch);
 }

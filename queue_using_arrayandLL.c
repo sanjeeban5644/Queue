@@ -8,7 +8,19 @@ struct node
     struct node *next;
 }*new,*front,*rear,*temp;
 
+front=NULL;
+rear=NULL;
+
 int rear_arr=-1,front_arr=-1;
+
+void usingarrays();
+void enqueue_arr(int [],int);
+void dequeue_arr(int [],int);
+void display_arr(int [],int);
+void usingll();
+void enqueuell();
+void dequeuell();
+void displayll();
 
 char ch;
 int final=0;
@@ -18,6 +30,7 @@ int main()
     int t=0,choice;
     while(t<3)
     {
+        system("cls");
         printf("\n--ENTER YOUR CHOICE--");
         printf("\n1 -> QUEUE USING ARRAYS");
         printf("\n2 -> QUEUE USING LINKED LIST");
@@ -77,7 +90,7 @@ void enqueuell()
     scanf(" %c",&ch);
 }
 
-void dequeue()
+void dequeuell()
 {
     temp=front;
     if(front==NULL)
@@ -112,6 +125,7 @@ void displayll()
             {
                 printf(" %d,",temp->data);
             }
+            temp=temp->next;
         }
         return ;
     }
@@ -128,6 +142,7 @@ void displayll()
             {
                 printf(" %d,",temp->data);
             }
+            temp=temp->next;
         }
     }
     printf("\nPress 'y' to continue : ");
@@ -207,7 +222,7 @@ void display_arr(int queue[],int size)
     int i;
     if(final==1)
     {
-        print("\nThe Final Queue is : ");
+        printf("\nThe Final Queue is : ");
 
     }
     else
